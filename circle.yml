@@ -1,9 +1,33 @@
-deployment:
-  dockerhub:
-    branch: master
-    commands:
-     - $DOCKER_HUB_TRIGGER
+machine:
+        services:
+            -docker
 
-test:
-  override:    
-    - mocha
+        dependencies:
+
+          override:
+               -dockerinfo
+               -docker build -t reddynithin84/pluralsight-dockerCI.
+
+
+
+
+          deployment:
+
+               hub:
+
+                branch: master
+
+                commands:
+
+                  -dockerlogin -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+                  -docker push reddynithin84/pluralsight-dockerCI
+
+
+
+                notify:
+
+
+                        test:
+
+                  override:
+                          -mocha
