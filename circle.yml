@@ -1,33 +1,12 @@
-machine:
-        services:
-            -docker
+# The deployment section should be excluded until
+# it is explicitly included in module 5
 
-        dependencies:
+#deployment:
+#  dockerhub:
+#    branch: master
+#    commands:
+#      - $DOCKER_HUB_TRIGGER
 
-          override:
-               -dockerinfo
-               -docker build -t reddynithin84/pluralsight-dockerCI.
-
-
-
-
-          deployment:
-
-               hub:
-
-                branch: master
-
-                commands:
-
-                  -dockerlogin -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-                  -docker push reddynithin84/pluralsight-dockerCI
-
-
-
-                notify:
-
-
-                        test:
-
-                  override:
-                          -mocha
+test:
+  override:    
+    - mocha
